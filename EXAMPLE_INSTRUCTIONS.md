@@ -11,37 +11,56 @@ This exercise walks you through building a CI/CD pipeline step by step. You star
 
 ## Step 1 — Get your own copy of the repository
 
+### Option A — Double remote (recommended)
+
 1. **Create an empty repository** in your GitHub account:
    - Go to [github.com/new](https://github.com/new)
-   - Give it any name (e.g., `taskmanager-cicd`)
+   - Give it any name (e.g., `CICDTaskManager`)
    - Leave *"Add a README"* and all other options **unchecked**
    - Click *"Create repository"*
 
 2. **Clone the course repository** to your machine:
    ```bash
-   git clone https://github.com/<professor>/<repo-name>.git
-   cd <repo-name>
+   git clone https://github.com/IyPSUMA/CICDTaskManager.git
+   cd CICDTaskManager
    ```
 
 3. **Add your own repository as a second remote:**
    ```bash
-   git remote add mygithub https://github.com/<your-username>/taskmanager-cicd.git
+   git remote add mygithub https://github.com/<your-username>/CICDTaskManager.git
    ```
    You now have two remotes:
    - `origin` — the course repository (read-only for you)
    - `mygithub` — your own copy on GitHub
 
+### Option B — Fork
+
+Alternatively, you can **fork** the repository directly from GitHub:
+
+1. Go to [github.com/IyPSUMA/CICDTaskManager](https://github.com/IyPSUMA/CICDTaskManager)
+2. Click the **Fork** button (top right)
+3. Clone your fork locally:
+   ```bash
+   git clone https://github.com/<your-username>/CICDTaskManager.git
+   cd CICDTaskManager
+   ```
+
+> A fork creates a linked copy under your account. This will be useful later when we cover **pull requests**.
+
+### Configure badges and push
+
 4. **Update the badge URLs in `README.md`** — replace the placeholders with your own username and repo name:
    ```
    YOUR_GITHUB_USERNAME  →  your GitHub username
-   YOUR_REPO_NAME        →  taskmanager-cicd  (or whatever you named it)
+   YOUR_REPO_NAME        →  CICDTaskManager  (or whatever you named it)
    ```
 
 5. **Push the code to your repository:**
    ```bash
    git add README.md
    git commit -m "Set badge URLs"
-   git push -u mygithub main
+   git push -u mygithub main       # if using double remote
+   # git push origin main           # if using fork
    ```
 
 Go to your repository on GitHub and open the **README** tab. You will see the badges — they will show as failing or unknown because no workflow files exist yet. That is expected. They will turn green as you add each workflow in the steps below.
