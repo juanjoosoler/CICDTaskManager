@@ -1,0 +1,47 @@
+name: CI (Single Job)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: Compile
+        run: mvn compile --batch-mode
+
+      - name: Run unit tests
+        run: mvn test --batch-mode
+
+      - name: Build JAR
+        run: mvn package --batch-mode
+
+      - name: Run integration tests
+        run: mvn integration-test --batch-mode
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: single-test-results
+          path: target/surefire-reports/
+
+      - name: Upload JAR artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: single-app-jar
+          path: target/*.jar
